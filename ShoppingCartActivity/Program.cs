@@ -40,6 +40,9 @@ class Program
             new Product { Id = 3, Name = "Grape", Price = 150, RemainingStock = 8 },
         };
          Cart[] cart = new Cart[5];
+         int[] qu
+             
+         double total = 0;
          int cartcount = 0;
 
          bool continueShopping = true;
@@ -47,9 +50,9 @@ class Program
          while (continueShopping)
          {
             Console.WriteLine("\nMenu:");
-            foreach (var product in products)
+            foreach (Product p in products)
             {
-               product.DisplayProduct();
+               p.DisplayProduct();
             }
             
              Console.Write("\nEnter product code: ");
