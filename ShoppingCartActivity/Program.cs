@@ -88,7 +88,7 @@ class Program
 
             if (!selected.SufficientStock(stock))
             {
-                Console.WriteLine("\nNot enough stock.");
+                Console.WriteLine("\nInsufficient Stock");
                 continue;
             }
 
