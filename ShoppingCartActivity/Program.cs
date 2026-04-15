@@ -19,3 +19,18 @@ class Product
         return RemainingStock >= quantity;
     }
 }
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("== Welcome to the Inconvenience Store! ==");
+
+        Product[] products = new Product[10];
+        {
+            new Product { Id = 1, Name = "Apple", Price = 25, RemainingStock = 10 };
+            new Product { Id = 2, Name = "Banana", Price = 55, RemainingStock = 7 };
+            new Product { Id = 3, Name = "Grape", Price = 150, RemainingStock = 8 };
+        }
+    }
+}
