@@ -20,6 +20,13 @@ class Product
     }
 }
 
+class Cart
+{
+    public Product product;
+    public int quantity;
+    public double total;
+}
+
 class Program
 {
     static void Main(string[] args)
