@@ -7,15 +7,15 @@ class Product
     public double Price;
     public int RemainingStock;
     public void DisplayProduct()
-     {
-     Console.WriteLine($"{Id}. {Name} - ₱{Price} - (Stock: {RemainingStock})");
-     }
+    {
+        Console.WriteLine($"{Id}. {Name} - ₱{Price} - (Stock: {RemainingStock})");
+    }
     public double GetItemTotal(int quantity)
-     { 
-     return Price * quantity;
-     }
+    { 
+        return Price * quantity;
+    }
     public bool SufficientStock(int quantity)
-     {
-     return RemainingStock >= quantity;
-     }
+    {
+        return RemainingStock >= quantity;
+    }
 }
