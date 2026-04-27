@@ -85,7 +85,13 @@ class Program
                 Console.WriteLine("\nInvalid quantity.");
                 continue;
             }
-
+            
+            if (selected.RemainingStock == 0)
+            {
+                Console.WriteLine("\nOut of Stock");
+                continue;
+            }
+            
             if (!selected.SufficientStock(stock))
             {
                 Console.WriteLine("\nInsufficient Stock");
