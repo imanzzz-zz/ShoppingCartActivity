@@ -1,11 +1,23 @@
 using System;
 
-class Cart
+class CartItem
 {
     public Product product;
     public int quantity;
     public double total;
 }
+
+class OrderHistory
+{
+    public string ReceiptNumber;
+    public DateTime Date;
+    public double FinalTotal;
+    public double Payment;
+    public double Change;
+    public double Discount;
+    public CartItem[] Items;
+}
+
 class Program
 {
     static void Main(string[] args)
@@ -25,14 +37,30 @@ class Program
 
         };
         Cart[] cart = new Cart[5];
-        
-        double total = 0;
         int cartcount = 0;
+        
+        OrderHistory[] history = new OrderHistory[20];
+        int historyCount = 0;
+        int receiptNumber = 1;
 
+        //MAIN MENU
         bool run = true;
-
-        while (run)
+        while (shopping)
         {
+            Console.WriteLine("\n==== MAIN MENU ====");
+            Console.WriteLine("1. View Products");
+            Console.WriteLine("2. Manage Cart");
+            Console.WriteLine("3. Order History");
+            Console.WriteLine("4. Exit Program");
+            Console.Write("Choose: ");
+
+            int mainChoice;
+            if (!int.TryParse(Console.ReadLine(), out mainChoice))
+            {
+              Console.WriteLine("Invalid Input");
+              continue;
+            }
+            
             Console.WriteLine("");
             foreach (Product p in products)
             {
