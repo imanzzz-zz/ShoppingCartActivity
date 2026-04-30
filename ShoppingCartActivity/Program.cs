@@ -60,7 +60,94 @@ class Program
               Console.WriteLine("Invalid Input");
               continue;
             }
-            
+            switch (mainChoice)
+            {
+                    //VIEW PRODUCTS
+                case 1:
+                    {
+                        Console.WriteLine("\n=== PRODUCTS MENU ===");
+                        Console.WriteLine("1. Buy Products");
+                        Console.WriteLine("2. Search Product by Name");
+                        Console.WriteLine("3. Filter Category");
+                        Console.WriteLine("4. Back to Main Menu");
+                        Console.Write("Choose an Option: ");
+
+                        int case1choice;
+                        if (!int.TryParse(Console.ReadLine(), out case1choice))
+                        {
+                            Console.WriteLine("Invalid Input");
+                            continue;
+                         } 
+                        switch (case1choice)
+                        {
+                         // BUY PRODUCTS
+                            case 1:
+                              AddProduct(products, cart, ref cartcount);
+                              CartMenu(products, cart, ref cartcount, history, ref historyCount, ref receiptNumber);
+                            break;
+                         //SEARCH PRODUC BY NAME
+                            case 2:
+                                Console.Write("\nEnter product name to search: ");
+                                string searchName = Console.ReadLine().ToLower();
+
+                                bool found = false;
+
+                                foreach (Product p in products)
+                                {
+                                   if (p.Name.ToLower().Contains(searchName))
+                                     {
+                                        p.DisplayProduct();
+                                        found = true;
+                                      }
+                                 }
+
+                                   if (!found)
+                                      {
+                                         Console.WriteLine("Product not found!");
+                                      }
+                            break;
+                            // FILTER CATEGORY
+                            case 3:
+                                Console.WriteLine("\n== Enter category to filter ==");
+                                Console.WriteLine("1. Snacks");
+                                Console.WriteLine("2. Drinks");
+                                Console.Write("Category: ");
+                                string searchCategory = Console.ReadLine().ToLower();
+
+                                string selectedCategory = "";
+
+                                switch (searchCategory)
+                                {
+                                   case "1":
+                                   selectedCategory = "Snacks";
+                                   break;
+
+                                   case "2":
+                                   selectedCategory = "Drinks";
+                                   break;
+                                   default:
+                                   Console.WriteLine("Invalid category!");
+                                   break;
+                                }
+
+                               if (selectedCategory != "")
+                               {
+                                   Console.WriteLine($"\n=== {selectedCategory} ===");
+                                   foreach (Product p in products)
+                                   {
+                                      if (p.Category == selectedCategory)
+                                        {
+                                           p.DisplayProduct();
+                                        }
+                                   }
+                               }
+                                //BACK TO MAIN MENU
+                            case 4:
+                                Console.WriteLine("Returning to main menu...");
+                                break;
+                        }
+                                
+                                              
             
     static void AddProduct(Product[] products, CartItem[] cart, ref int cartcount)
      // ADD PRODUCT TO CART
@@ -160,7 +247,7 @@ class Program
     }
 }
                 
-        //RECEIPT
+        //DELETE
         Console.WriteLine("\n==== RECEIPT ====");
         for (int i = 0; i < cartcount; i++)
         {
