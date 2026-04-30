@@ -61,106 +61,105 @@ class Program
               continue;
             }
             
-            Console.WriteLine("");
-            foreach (Product p in products)
-            {
-                p.DisplayProduct();
-            }
-
-            Console.Write("\nEnter product number: ");
-            int productid;
-            if (!int.TryParse(Console.ReadLine(), out productid))
-            {
-                Console.WriteLine("\nInvalid Input");
-                continue;
-            }
-
-            if (productid < 1 || productid > products.Length)
-            {
-                Console.WriteLine("\nInvalid Input");
-                continue;
-            }
-
-            Product selected = products[productid - 1];
-
-            Console.Write("Enter quantity: ");
-            int stock;
-            if (!int.TryParse(Console.ReadLine(), out stock) || stock <= 0)
-            {
-                Console.WriteLine("\nInvalid quantity.");
-                continue;
-            }
             
-            if (selected.RemainingStock == 0)
-            {
-                Console.WriteLine("\nOut of Stock");
-                continue;
-            }
-            
-            if (!selected.SufficientStock(stock))
-            {
-                Console.WriteLine("\nInsufficient Stock");
-                continue;
-            }
+    static void AddProduct(Product[] products, CartItem[] cart, ref int cartcount)
+     // ADD PRODUCT TO CART
+    {
+        bool buying = true;
 
-            //ADD PRODUCT
-            int existing = -1;
-            for (int i = 0; i < cartcount; i++)
-            {
-                if (cart[i].product.Id == selected.Id)
-                {
-                    existing = i; 
-                    break;
-                }
-
-            }
-            if (existing != -1)
-            {
-                cart[existing].quantity += stock;
-                cart[existing].total = cart[existing].product.GetItemTotal(cart[existing].quantity);
-                selected.DeductStock(stock);
-                Console.WriteLine("\nCart Updated!");
-                
-            }
-            else
-            {
-                if (cartcount >= 5)
-                {
-                    Console.Write("Cart FUll");
-                }
-                else
-                {
-                    cart[cartcount] = new Cart
-                    {
-                        product = selected,
-                        quantity = stock,
-                        total = selected.GetItemTotal(stock)
-                    };
-                    cartcount++;
-                    selected.DeductStock(stock);
-                    Console.WriteLine("Added to Cart");
-                }
-            }
-
-            string choice = "";
-            while (true)
-            {
-                Console.Write("\nAdd More Items? (Y/N): ");
-                choice = Console.ReadLine().ToUpper();
-
-                if (choice == "Y" || choice == "N")
-                {
-                    break;
-                }
-                Console.WriteLine("Invalid Input");
-            }
-            if (choice == "N")
-            {
-                run = false;
-            }
-
-
+        while (buying)
+        {
+        Console.WriteLine("\n=== PRODUCTS ===");
+        foreach (Product p in products)
+        {
+            p.DisplayProduct();
         }
+
+        Console.Write("\nEnter product number: ");
+        int productid;
+        if (!int.TryParse(Console.ReadLine(), out productid))
+        {
+            Console.WriteLine("Invalid Input");
+            continue;
+        }
+
+        if (productid < 1 || productid > products.Length)
+        {
+            Console.WriteLine("Invalid Product");
+            continue;
+        }
+
+        Product selected = products[productid - 1];
+
+        Console.Write("Enter quantity: ");
+        int stock;
+        if (!int.TryParse(Console.ReadLine(), out stock) || stock <= 0)
+        {
+            Console.WriteLine("Invalid Quantity");
+            continue;
+        }
+
+        if (!selected.SufficientStock(stock))
+        {
+            Console.WriteLine("Insufficient Stock");
+            continue;
+        }
+
+        int existing = -1;
+
+        for (int i = 0; i < cartcount; i++)
+        {
+            if (cart[i].product.Id == selected.Id)
+            {
+                existing = i;
+                break;
+            }
+        }
+
+        if (existing != -1)
+        {
+            cart[existing].quantity += stock;
+            cart[existing].total = cart[existing].product.GetItemTotal(cart[existing].quantity);
+        }
+        else
+        {
+            if (cartcount >= cart.Length)
+            {
+                Console.WriteLine("Cart Full");
+                break;
+            }
+
+            cart[cartcount] = new CartItem
+            {
+                product = selected,
+                quantity = stock,
+                total = selected.GetItemTotal(stock)
+            };
+            cartcount++;
+        }
+
+        selected.DeductStock(stock);
+        Console.WriteLine("Added to Cart!");
+
+        // ASK TO ADD MORE
+        string choice;
+        while (true)
+        {
+            Console.Write("Add More Items? (Y/N): ");
+            choice = Console.ReadLine().ToUpper();
+
+            if (choice == "Y" || choice == "N")
+                break;
+
+            Console.WriteLine("Invalid Input");
+        }
+
+        if (choice == "N")
+            buying = false;
+
+    }
+}
+                
         //RECEIPT
         Console.WriteLine("\n==== RECEIPT ====");
         for (int i = 0; i < cartcount; i++)
