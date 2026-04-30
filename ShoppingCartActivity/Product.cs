@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ShoppingCartActivity
 {
@@ -26,6 +24,10 @@ namespace ShoppingCartActivity
         public void DeductStock(int quantity)
         {
             RemainingStock -= quantity;
+        }
+        public void RestoreStock(int quantity)
+        {
+            RemainingStock += quantity;
         }
     }
 }
