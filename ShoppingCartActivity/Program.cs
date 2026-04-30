@@ -146,6 +146,53 @@ class Program
                                 Console.WriteLine("Returning to main menu...");
                                 break;
                         }
+                   
+                        // MANAGE CART
+                case 2:
+                    CartMenu(products, cart, ref cartcount, history, ref historyCount, ref receiptNumber);
+                break;
+                    // ORDER HISTORY
+                case 3:
+                    Console.WriteLine("\n=== ORDER HISTORY ===");
+
+                        if (historyCount == 0)
+                        {
+                            Console.WriteLine("No transactions yet.");
+                        }
+                        else
+                        {
+                            for (int i = 0; i < historyCount; i++)
+                            {
+                                Console.WriteLine("\n========================================");
+                                Console.WriteLine($"Receipt #{history[i].ReceiptNumber}");
+                                Console.WriteLine($"Date: {history[i].Date}");
+                                Console.WriteLine("\n================= ITEMS =================");
+
+                                if (history[i].Items != null)
+                                {
+                                    for (int j = 0; j < history[i].Items.Length; j++)
+                                    {
+                                        Console.WriteLine($"{history[i].Items[j].product.Name} x {history[i].Items[j].quantity} = {history[i].Items[j].total}");
+                                    }
+                                }
+                                Console.WriteLine("\n----------------------------------");
+                                Console.WriteLine($"Discount: {history[i].Discount}");
+                                Console.WriteLine($"Final Total: {history[i].FinalTotal}");
+                                Console.WriteLine("\n----------------------------------");
+                                Console.WriteLine($"Payment: {history[i].Payment}");
+                                Console.WriteLine($"Change: {history[i].Change}");
+                                
+                            }
+                        }
+                break;
+                    // EXIT PROGRAM
+                case 4:
+                    shopping = false;
+                    Console.WriteLine("Thank you for shopping with us!");
+                break;
+            }
+        }
+    }
                                 
                                               
             
@@ -154,8 +201,8 @@ class Program
     {
         bool buying = true;
 
-        while (buying)
-        {
+      while (buying)
+      {
         Console.WriteLine("\n=== PRODUCTS ===");
         foreach (Product p in products)
         {
@@ -244,38 +291,5 @@ class Program
         if (choice == "N")
             buying = false;
 
+      }
     }
-}
-                
-        //DELETE
-        Console.WriteLine("\n==== RECEIPT ====");
-        for (int i = 0; i < cartcount; i++)
-        {
-            double subtotal = cart[i].total;
-            int itemNo = i + 1;
-            Console.WriteLine($"{itemNo}. {cart[i].product.Name} x {cart[i].quantity} = {subtotal}");
-            total += subtotal;
-        }
-        
-
-        //DISCOUNT
-        if (total >= 5000)
-        {
-            double discount = total * 0.10;
-            total -= discount;
-            Console.WriteLine("----------------------");
-            Console.WriteLine($"Discount (10%): {discount}");
-            Console.WriteLine($"Total: {total}");
-        }
-        else
-        {
-            Console.WriteLine("----------------------");
-            Console.WriteLine($"Grand Total: {total}");
-        }
-        Console.WriteLine("\n==== Updated Stock ====");
-        foreach (Product p in products)
-        {
-            Console.WriteLine($"{p.Name}: {p.RemainingStock}");
-        }
-    }
-}
