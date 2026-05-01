@@ -9,14 +9,14 @@ namespace ShoppingCartActivity
         public double total;
     }
     class OrderHistory
-{
-    public string ReceiptNumber;
-    public DateTime Date;
-    public double FinalTotal;
-    public double Payment;
-    public double Change;
-    public double Discount;
-    public CartItem[] Items;
+    {
+        public string ReceiptNumber;
+        public DateTime Date;
+        public double FinalTotal;
+        public double Payment;
+        public double Change;
+        public double Discount;
+        public CartItem[] Items;
     }
     class Program
     {
@@ -27,7 +27,7 @@ namespace ShoppingCartActivity
 
             Product[] products = new Product[]
             {
-            new Product { Id = 1, Name = "Coke", Category = "Drinks", Price = 75, RemainingStock = 10 },
+            new Product { Id = 1, Name = "Coke", Category = "Drinks", Price = 5000, RemainingStock = 10 },
             new Product { Id = 2, Name = "Rebisco", Category = "Snacks", Price = 45, RemainingStock = 7 },
             new Product { Id = 3, Name = "Potato Chips", Category = "Snacks", Price = 25, RemainingStock = 8 },
             new Product { Id = 4, Name = "C2", Category = "Drinks", Price = 36, RemainingStock = 9 },
@@ -170,7 +170,7 @@ namespace ShoppingCartActivity
                         {
                             for (int i = 0; i < historyCount; i++)
                             {
-                                Console.WriteLine("\n========================================");
+                                Console.WriteLine("\n*****************************************");
                                 Console.WriteLine($"Receipt #{history[i].ReceiptNumber}");
                                 Console.WriteLine($"Date: {history[i].Date}");
                                 Console.WriteLine("\n================= ITEMS =================");
@@ -183,15 +183,23 @@ namespace ShoppingCartActivity
                                     }
                                 }
                                 Console.WriteLine("\n----------------------------------");
-                                Console.WriteLine($"Discount: {history[i].Discount}");
+                                if ( history[i].Discount > 0)
+                                {
+                                    Console.WriteLine($"Discount: {history[i].Discount}");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Discount: Not Applicable");
+                                }
+
                                 Console.WriteLine($"Final Total: {history[i].FinalTotal}");
                                 Console.WriteLine("\n----------------------------------");
                                 Console.WriteLine($"Payment: {history[i].Payment}");
                                 Console.WriteLine($"Change: {history[i].Change}");
-                                
+
                             }
                         }
-                    break;
+                        break;
                     // EXIT PROGRAM
                     case 4:
                         shopping = false;
@@ -436,19 +444,19 @@ namespace ShoppingCartActivity
                 // CLEAR CART
                 else if (menu == 4)
                 {
-                    if(cartcount == 0)
-                                    {
+                    if (cartcount == 0)
+                    {
                         Console.WriteLine("Cart is already Empty");
                         continue;
                     }
-                    for(int i = 0; i < cartcount; i++)
+                    for (int i = 0; i < cartcount; i++)
                     {
                         cart[i].product.RestoreStock(cart[i].quantity);
                     }
                     cartcount = 0;
                     Console.WriteLine("Cart Cleared!");
                 }
-                
+
                 // CHECKOUT
                 else if (menu == 5)
                 {
@@ -473,7 +481,7 @@ namespace ShoppingCartActivity
                     }
 
                     // DISCOUNT
-                    if (finalTotal >= 500)
+                    if (finalTotal >= 5000)
                     {
                         discount = finalTotal * 0.10;
                     }
@@ -482,7 +490,14 @@ namespace ShoppingCartActivity
 
                     Console.WriteLine("----------------------------------------");
                     Console.WriteLine($"Grand Total: {finalTotal}");
-                    Console.WriteLine($"Discount (10%): {discount}");
+                    if (discount > 0)
+                    {
+                        Console.WriteLine($"Discount: {discount}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Discount: Not Applicable");
+                    }
                     Console.WriteLine($"Final Total: {discountedTotal}");
 
                     // PAYMENT VALIDATION
@@ -561,7 +576,7 @@ namespace ShoppingCartActivity
                         Console.WriteLine("No low stock products.");
                     }
 
-                    
+
                     // CLEAR CART
                     for (int i = 0; i < cartcount; i++)
                     {
@@ -570,7 +585,7 @@ namespace ShoppingCartActivity
                     cartcount = 0;
                     break;
                 }
-           
+
                 else if (menu == 6)
                 {
                     cartMenu = false;
