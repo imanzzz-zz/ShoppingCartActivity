@@ -27,7 +27,7 @@ namespace ShoppingCartActivity
 
             Product[] products = new Product[]
             {
-            new Product { Id = 1, Name = "Coke", Category = "Drinks", Price = 5000, RemainingStock = 10 },
+            new Product { Id = 1, Name = "Coke", Category = "Drinks", Price = 75, RemainingStock = 10 },
             new Product { Id = 2, Name = "Rebisco", Category = "Snacks", Price = 45, RemainingStock = 7 },
             new Product { Id = 3, Name = "Potato Chips", Category = "Snacks", Price = 25, RemainingStock = 8 },
             new Product { Id = 4, Name = "C2", Category = "Drinks", Price = 36, RemainingStock = 9 },
