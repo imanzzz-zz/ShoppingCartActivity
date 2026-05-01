@@ -482,7 +482,7 @@ namespace ShoppingCartActivity
 
                     Console.WriteLine("----------------------------------------");
                     Console.WriteLine($"Grand Total: {finalTotal}");
-                    Console.WriteLine($"Discount: {discount}");
+                    Console.WriteLine($"Discount (10%): {discount}");
                     Console.WriteLine($"Final Total: {discountedTotal}");
 
                     // PAYMENT VALIDATION
